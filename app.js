@@ -17,6 +17,7 @@ const reviewRouter = require('./routes/reviewRoutes');
 const bookingRouter = require('./routes/bookingRoutes');
 const viewRouter = require('./routes/viewRoutes');
 
+// Start express app
 const app = express();
 
 app.set('view engine', 'pug');
@@ -26,7 +27,6 @@ app.set('views', path.join(__dirname, 'views'));
 
 // Serving static files
 app.use(express.static(path.join(__dirname, 'public')));
-
 
 app.use(express.static(`${__dirname}/public`));
 
