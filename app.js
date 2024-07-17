@@ -21,6 +21,8 @@ const viewRouter = require('./routes/viewRoutes');
 // Start express app
 const app = express();
 
+app.enable('trust proxy');
+
 app.set('view engine', 'pug');
 app.set('views', path.join(__dirname, 'views'));
 
@@ -32,18 +34,19 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(`${__dirname}/public`));
 
 // Set security HTTP headers
-// app.use(helmet());
-const cspDefaults = helmet.contentSecurityPolicy.getDefaultDirectives();
-delete cspDefaults['connect-src'];
+app.use(helmet());
 
-app.use(
-  helmet.contentSecurityPolicy({
-    directives: {
-      ...cspDefaults,
-      'connect-src': ["'self'", '*'],
-    },
-  })
-);
+// const cspDefaults = helmet.contentSecurityPolicy.getDefaultDirectives();
+// delete cspDefaults['connect-src'];
+
+// app.use(
+//   helmet.contentSecurityPolicy({
+//     directives: {
+//       ...cspDefaults,
+//       'connect-src': ["'self'", '*'],
+//     },
+//   })
+// );
 
 // Development logging
 if (process.env.NODE_ENV === 'development') {

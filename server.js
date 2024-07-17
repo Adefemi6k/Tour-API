@@ -33,6 +33,14 @@ process.on('unhandledRejection', (err) => {
   });
 });
 
+// This is being implemented because of HEROKU
+process.on('SIGTERM', ()=>{
+  console.log('Sigterm Recieved! Shutting down gracefully')
+  server.close(()=>{
+    console.log('Process terminated')
+  })
+})
+
 // console.log(x);
 
 // // TO CONNECT TO LOCAL DB
