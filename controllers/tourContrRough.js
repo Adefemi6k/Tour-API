@@ -1,6 +1,6 @@
 exports.getAllTours = async (req, res) => {
     try {
-      console.log(req.query);
+      // console.log(req.query);
   
       // BUILD QUERY
       // 1A) FILTERING

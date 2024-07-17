@@ -151,12 +151,10 @@ tourSchema.pre('save', function (next) {
 // });
 
 // tourSchema.pre('save', function (next) {
-//   console.log('Good');
 //   next();
 // });
 
 // tourSchema.post('save', function (doc, next) {
-//   console.log('ddj');
 // });
 
 // QUERY MIDDLEWARE
@@ -188,7 +186,6 @@ tourSchema.pre(/^find/, function (next) {
 
 tourSchema.post(/^find/, function (docs, next) {
   console.log(`Query took ${Date.now() - this.start} milliseconds`);
-  // console.log(docs);
   next();
 });
 

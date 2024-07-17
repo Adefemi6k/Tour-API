@@ -116,13 +116,11 @@ exports.protect = catchAsync(async (req, res, next) => {
       new AppError('User recently changed password! Please log in again', 401)
     );
   }
-  console.log('it is here')
 
   // Grant access to protected route
   req.user = currentUser;
   res.locals.user = currentUser;
   next();
-  console.log('it is getting here')
 });
 
 // Only for rendered pages and there will be no errors
