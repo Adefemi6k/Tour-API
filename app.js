@@ -17,6 +17,7 @@ const tourRouter = require('./Routes/tourRoutes');
 const userRouter = require('./Routes/userRoutes');
 const reviewRouter = require('./routes/reviewRoutes');
 const bookingRouter = require('./routes/bookingRoutes');
+const bookingController = require('./controllers/bookingController');
 const viewRouter = require('./routes/viewRoutes');
 
 // Start express app
@@ -72,6 +73,13 @@ const limiter = rateLimit({
     'Too many request request from this IP, please try again in one hour',
 });
 app.use('/api', limiter);
+
+// The reason we have this route in app.js and not the booking router is because in this handler function when we receive the body from Stripe, the Stripe function that we are then going to use to actually read the body needs this body in a raw form, so basically as a stream and not as JSON. In this route ('/webhook-checkout') here we need the body coming with the request to not be in JSON, or else it won't work at all. That's why we are putting this route here before calling "BODY PARSER".
+app.post(
+  '/webhook-checkout',
+  express.raw({ type: 'application/json' }),
+  bookingController.webhookCheckout
+);
 
 // Body parser, reading data from body into req.body
 app.use(express.json({ limit: '10kb' }));
